@@ -1,20 +1,31 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-function App() {
-    const [message, setMessage] = useState("");
-    const [responses, setResponses] = useState([]);
+// Define a type for the response object
+interface ChatResponse {
+    user: string;
+    bot: string;
+}
 
-    const handleSubmit = async (e) => {
-      try {
+function App() {
+    // Use state with type annotations
+    const [message, setMessage] = useState<string>("");
+    const [responses, setResponses] = useState<ChatResponse[]>([]);
+
+    // Update handleSubmit to include event type
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const response = await axios.post('http://127.0.0.1:8000/chat', { message: message });
-        setResponses([...responses, { user: message, bot: response.data.response }]);
-        setMessage("");
-        console.log(response.data);
-      } catch (error) {
-        console.log(error);
-      }
+
+        try {
+            // Send a POST request to the backend
+            const response = await axios.post<{ response: string }>("http://127.0.0.1:8000/chat", { message });
+
+            // Update responses state
+            setResponses([...responses, { user: message, bot: response.data.response }]);
+            setMessage(""); // Clear the input field
+        } catch (error) {
+            console.error("Error sending message:", error);
+        }
     };
 
     return (
