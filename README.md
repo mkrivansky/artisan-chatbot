@@ -54,4 +54,17 @@ These are the areas we are generally interested in:
 
 # How to Run & Test My Code
 
-TODO: add this later
+Create Virtual Environment
+```python -m venv venv```
+Activate
+```source venv/bin/activate```
+Install FastAPI & Uvicorn
+```pip install fastapi uvicorn```
+Start the server
+```uvicorn main:app --reload```
+
+In another terminal window, Start React App
+```npm start```
+
+Should be running on 
+http://localhost:3000
