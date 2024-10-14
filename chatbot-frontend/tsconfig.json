@@ -22,5 +22,5 @@
   },
   "include": [
     "src"
-  ]
+, "src/components/Message.tsx", "src/components/MessageComponent.tsx"  ]
 }
