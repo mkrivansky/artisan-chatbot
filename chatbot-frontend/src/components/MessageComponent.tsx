@@ -21,7 +21,7 @@ const MessageComponent = (props: MessageComponentProps) => {
           {/* <span className="sender">{message.sender}:</span>
           <span className="text">{message.text}</span> */}
           <Message initialMessage={message.initialMessage} sender={message.sender} id={message.id} />
-          {message.sender == 'user' && 
+          {message.sender === 'user' && 
             <span>
                <button>Delete</button><button>Edit</button>
             </span>}

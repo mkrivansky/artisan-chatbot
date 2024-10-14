@@ -1,23 +1,22 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Message from "./components/Message";
 // import MessageComponent from './components/MessageComponent';
 // import MessageItem from './components/MessageComponent'
 
 interface Message {
-    id: number;
+    id: string;
     text: string;
-    responseId?: number
-    sender: 'user' | 'bot';
+    response?: string
     timestamp: Date;
 }
 
 function App() {
     // Use state with type annotations 
-    let id = 0;
     const [message, setMessage] = useState<string>("");
-    const [newMessage, setNewMessage] = useState('');
+    const [newMessage, setNewMessage] = useState<string>("");
     const [messages, setMessages] = useState<Message[]>([]);
-    const [editingMessageId, setEditingMessageId] = useState<number | null>(null);
+    const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
     
     // Update handleSubmit to include event type
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -25,23 +24,16 @@ function App() {
         
         try {
             // Send a POST request to the backend
+            console.log(message)
             const response = await axios.post<{ response: string }>("http://127.0.0.1:8000/chat", { message });
             
-            const responseId = id++;
-            const newResponse: Message = {
-                id: responseId,
-                text: response.data.response,
-                sender: 'bot',
-                timestamp: new Date(),
-            };
             const newMsg: Message = {
-                id: id++,
+                id: Date.now().toString(),
                 text: message,
-                responseId: responseId,
-                sender: 'user',
+                response: response.data.response,
                 timestamp: new Date(),
             };
-            setMessages([...messages, newMsg, newResponse]);
+            setMessages([...messages, newMsg]);
             
             setMessage(""); // Clear the input field
         } catch (error) {
@@ -53,7 +45,7 @@ function App() {
         setNewMessage(event.target.value);
     };
     
-    const handleEditMessage = (id: number) => {
+    const handleEditMessage = (id: string) => {
         setEditingMessageId(id);
         const messageToEdit = messages.find((msg) => msg.id === id);
         if (messageToEdit) {
@@ -61,21 +53,27 @@ function App() {
         }
     };
 
-    const handleDeleteMessage = (id: number) => {
+    const handleDeleteMessage = (id: string) => {
         
-        const responseIdToDelete = messages.find(msg => msg.id = id)?.responseId;
-        let newMessages = messages.filter(msg => msg.id !== id);
-        setMessages(newMessages);
-        newMessages = messages.filter(msg => msg.id !== responseIdToDelete);
+        const newMessages = messages.filter(msg => msg.id !== id);
         setMessages(newMessages);
     };
     
-    const handleSaveEdit = () => {
-        setMessages(
-            messages.map((msg) =>          
-                msg.id === editingMessageId ? { ...msg, text: newMessage } : msg
-            )
-        );
+    const handleSaveEdit = async () => {        
+        try {
+            // Send a POST request to the backend
+            console.log(newMessage)
+            const response = await axios.post<{ response: string }>("http://127.0.0.1:8000/edit", { newMessage });
+
+            setMessages(
+                messages.map((msg) =>          
+                    msg.id === editingMessageId ? { ...msg, text: newMessage, response:  response.data.response} : msg
+                )
+            );
+            
+        } catch (error) {
+            console.error("Error sending message:", error);
+        }
         setEditingMessageId(null);
         setNewMessage('');
     };
@@ -86,7 +84,7 @@ function App() {
             <div className="chat-messages"> {messages.map((msg) => (
                 <div
                     key={msg.id}
-                    className={`message ${msg.sender === 'user' ? 'user' : 'bot'}`}
+                    className={"message user"}
                 >
                 {editingMessageId === msg.id ? (
                     <input
@@ -95,13 +93,14 @@ function App() {
                         onChange={handleInputChange}
                     />
                 ) : (
-                    <p>{msg.text}</p>
-                    )}
-                {msg.sender === 'user' && (
-                    <div>
-                        <button onClick={() => handleEditMessage(msg.id)}>Edit</button>
-                        <button onClick={() => handleDeleteMessage(msg.id)}>Delete</button>
-                    </div>
+                <div>
+                    <span>
+                    <p>User: {msg.text}</p>
+                    <button onClick={() => handleEditMessage(msg.id)}>Edit</button>
+                    <button onClick={() => handleDeleteMessage(msg.id)}>Delete</button>
+                    </span>
+                    <p>Bot: {msg.response}</p>
+                </div>
                 )}
                 {editingMessageId === msg.id && (
                     <button onClick={handleSaveEdit}>Save</button>
