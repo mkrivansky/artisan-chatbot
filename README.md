@@ -56,7 +56,6 @@ These are the areas we are generally interested in:
 
 Create Virtual Environment
 ```python -m venv venv```
-Activate
 ```source venv/bin/activate```
 Install FastAPI & Uvicorn
 ```pip install fastapi uvicorn```
@@ -64,6 +63,7 @@ Start the server
 ```uvicorn main:app --reload```
 
 In another terminal window, Start React App
+```cd chatbot-frontend```
 ```npm start```
 
 Should be running on 
