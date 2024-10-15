@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Message from "./components/Message";
-// import MessageComponent from './components/MessageComponent';
-// import MessageItem from './components/MessageComponent'
+import MessageItem from "./components/MessageItem";
+import ResponseItem from "./components/ResponseItem";
 
 interface Message {
     id: string;
@@ -95,11 +94,12 @@ function App() {
                 ) : (
                 <div>
                     <span>
-                    <p>User: {msg.text}</p>
+                    <div><MessageItem message={msg.text}/>
                     <button onClick={() => handleEditMessage(msg.id)}>Edit</button>
                     <button onClick={() => handleDeleteMessage(msg.id)}>Delete</button>
+                    </div>
                     </span>
-                    <p>Bot: {msg.response}</p>
+                    <div><ResponseItem response={msg.response!}/></div>
                 </div>
                 )}
                 {editingMessageId === msg.id && (

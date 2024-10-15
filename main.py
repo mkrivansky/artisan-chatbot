@@ -2,8 +2,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-class Item(BaseModel):
+class ItemMessage(BaseModel):
    message: str
+
+class ItemNewMessage(BaseModel):
+   newMessage: str
 
 app = FastAPI()
 
@@ -11,7 +14,9 @@ app = FastAPI()
 responses = {
     "hello": "Hi there!",
     "how are you?": "I'm just a program, but thanks for asking!",
-    "bye": "Goodbye!"
+    "bye": "Goodbye!",
+    "hi": "Hello!",
+    "hey": "Hi, what's up?"
 }
 
 
@@ -29,8 +34,12 @@ async def read_root():
    return {"Hello": "World"}
 
 @app.post("/chat")
-async def chat(item: Item):
+async def chat(item: ItemMessage):
    response = responses.get(item.message.lower(), "Sorry, I didn't understand that.")
    return {"response": response}
-   # return {"response": f"You said: {message}"}
+
+@app.post("/edit")
+async def chat(item: ItemNewMessage):
+   response = responses.get(item.newMessage.lower(), "Sorry, I didn't understand that.")
+   return {"response": response}
 
