@@ -1,0 +1,122 @@
+/* src/components/Message.css */
+
+/* .message-user-container {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #7d3afd;
+    color: white;
+    word-wrap: break-word;
+    align-items: flex-end;
+    align-self: flex-end;
+    max-width: 60%;
+}
+
+.message-bot-container {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    max-width: 60%;
+    display: block;
+    word-wrap: break-word;
+    align-items: flex-start;
+    align-self: flex-start;
+    margin-left: auto;
+} */
+
+.message-user-container {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #7d3afd;
+    color: white;
+    max-width: 48%;
+    display: block;
+    word-wrap: break-word;
+    align-items: flex-start;
+    align-self: flex-start;
+    margin-left: auto;
+}
+
+.message-bot-container {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    /* background-color: #f1f1f1; */
+    word-wrap: break-word;
+    align-items: flex-end;
+    align-self: flex-end;
+    max-width: 48%;
+}
+
+.message-user-text {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    color: #f1f1f1;
+    text-align: right;
+    word-wrap: break-word;
+    align-self: flex-end;
+}
+
+.message-bot-text {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.message-user-sender {
+    font-size: 0.8rem;
+    color: #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.message-bot-sender {
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    opacity: 0.8;
+}
+
+.edit-input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 5px;
+    width: 90%;
+}
+
+.button-container {
+    display: flex;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    /* opacity: 0.6; */
+}
+
+.button {
+    padding: 5px 10px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    /* color: white; */
+    transition: background-color 0.2s;
+    /* max-width: 60%; */
+}
+
+.button:hover {
+    /* background-color: #004494; Darken on hover */
+    opacity: 0.8
+}
