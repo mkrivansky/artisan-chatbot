@@ -53,7 +53,7 @@ const Chat: React.FC = () => {
                 ))}
             </div>
             <div>
-                {messages.length == 0 ? (
+                {messages.length === 0 ? (
                     <div>
                         <div className='message-bot-container'>
                             <p className='message-bot-text'>Hi! How can I help you today?</p>
