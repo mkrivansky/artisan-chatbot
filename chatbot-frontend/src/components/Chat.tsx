@@ -1,25 +1,23 @@
 // src/components/Chat.tsx
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useMessages } from '../hooks/useMessages';
 import Message from './Message';
 import MessageInput from './MessageInput';
 import axios from "axios";
-import './Chat.css'
-import './Message.css'
-// import styled from 'styled-components';
+import '../styles/Chat.css'
+import '../styles/Message.css'
 
 const Chat: React.FC = () => {
     const { messages, addMessage, editMessage, deleteMessage } = useMessages();
     const [suggestedMessage, setSuggestedMessage] = useState("");
+    const chatContainerRef = useRef<HTMLDivElement>(null);
 
     const handleSend = (text: string) => {
-        addMessage(text, 'User'); // For simplicity, hardcoding sender as 'User'
+        addMessage(text, 'User');
     };
 
     const fetchSuggestions = async () => {
-        try {
-            // Send a POST request to the backend
-            const response = await axios.get<{ response: string }>("http://127.0.0.1:8000/suggestion");
+        try {            const response = await axios.get<{ response: string }>("http://127.0.0.1:8000/suggestion");
 
             setSuggestedMessage(response.data.response);
             console.log(suggestedMessage);
@@ -30,7 +28,7 @@ const Chat: React.FC = () => {
     };
 
     const sendSuggestion = (text: string) => {
-        addMessage(text, 'User'); // For simplicity, hardcoding sender as 'User'
+        addMessage(text, 'User');
         fetchSuggestions();
     };
 
@@ -38,10 +36,20 @@ const Chat: React.FC = () => {
         fetchSuggestions();
     }, []);
 
+    useEffect(() => {
+        if (chatContainerRef.current) {
+            chatContainerRef.current.scrollTo({
+                top: chatContainerRef.current.scrollHeight, 
+                behavior: "smooth",
+            });
+        }
+    }, [messages]);
+
     return (
-        <div className='chat-container'>
-            <div>
-                {messages.map((message) => (
+        <div className='container'>
+            <div className='chat-container' ref={chatContainerRef}>
+                <div>
+                    {messages.map((message) => (
                     <div>
                         <Message
                             key={message.id}
@@ -51,19 +59,21 @@ const Chat: React.FC = () => {
                         />
                     </div>
                 ))}
-            </div>
-            <div>
-                {messages.length === 0 ? (
-                    <div>
-                        <div className='message-bot-container'>
-                            <p className='message-bot-text'>Hi! How can I help you today?</p>
-                            <span className='message-bot-sender'>Ava - {new Date().toLocaleString()}</span>
+                </div>
+                <div>
+                    {messages.length === 0 ? (
+                        <div>
+                            <div className='message-bot-container'>
+                                <img src={require('../assets/images/ava.png')} className="ava-pic" />
+                                <p className='message-bot-text'>Hi! How can I help you today?</p>
+                                <span className='message-bot-sender'>Ava - {new Date().toLocaleString()}</span>
+                            </div>
+                            <div className='button-suggestion' onClick={() => sendSuggestion(suggestedMessage)}>{suggestedMessage}</div>
                         </div>
+                    ) : (
                         <div className='button-suggestion' onClick={() => sendSuggestion(suggestedMessage)}>{suggestedMessage}</div>
-                    </div>
-                ) : (
-                    <div className='button-suggestion' onClick={() => sendSuggestion(suggestedMessage)}>{suggestedMessage}</div>
-                )}
+                    )}
+                </div>
             </div>
             <MessageInput onSend={handleSend} />
         </div>

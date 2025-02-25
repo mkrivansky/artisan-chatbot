@@ -4,7 +4,6 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import Chat from './Chat';
 import { useMessages } from '../hooks/useMessages';
 
-// Mock the useMessages hook
 jest.mock('../hooks/useMessages');
 
 describe('Chat Component', () => {
@@ -30,10 +29,9 @@ describe('Chat Component', () => {
     });
 
     it('adds a new message', () => {
-        // const { getByPlaceholderText, getByText } = render(<Chat />);
         
         fireEvent.change(screen.getByPlaceholderText('Type your message...'), { target: { value: 'New message' } });
-        fireEvent.click(screen.getByText('Send')); // Adjust this if your button text is different
+        fireEvent.click(screen.getByText('Send')); 
         
         expect(screen.getByText('New message')).toBeInTheDocument();
     });

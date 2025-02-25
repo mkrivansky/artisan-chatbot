@@ -1,35 +1,11 @@
-/* src/components/Message.css */
-
-/* .message-user-container {
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 5px;
-    background-color: #7d3afd;
-    color: white;
-    word-wrap: break-word;
-    align-items: flex-end;
-    align-self: flex-end;
-    max-width: 60%;
-}
-
-.message-bot-container {
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 5px;
-    background-color: #f1f1f1;
-    max-width: 60%;
-    display: block;
-    word-wrap: break-word;
-    align-items: flex-start;
-    align-self: flex-start;
-    margin-left: auto;
-} */
+/* src/styles/Message.css */
 
 .message-user-container {
     margin: 10px 0;
     padding: 10px;
     border-radius: 5px;
     background-color: #7d3afd;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     color: white;
     max-width: 48%;
     display: block;
@@ -43,7 +19,7 @@
     margin: 10px 0;
     padding: 10px;
     border-radius: 5px;
-    /* background-color: #f1f1f1; */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     word-wrap: break-word;
     align-items: flex-end;
     align-self: flex-end;
@@ -119,4 +95,12 @@
 .button:hover {
     /* background-color: #004494; Darken on hover */
     opacity: 0.8
+}
+
+.ava-pic {
+    width: 30px;
+    height: 30px;
+    border-radius: 20px;
+    /* margin-right: 5px; */
+    /* align-self: flex-start; */
 }
