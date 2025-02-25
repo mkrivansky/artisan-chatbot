@@ -6,12 +6,9 @@ import axios from "axios";
 export const useMessages = () => {
     const [messages, setMessages] = useState<Message[]>([]);
     const [suggestedMessage, setSuggestedMessage] = useState<string>("");
-    const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
 
     const addMessage = async (text: string, sender: string) => {
         try {
-            // Send a POST request to the backend
-            console.log(text)
             const response = await axios.post<{ response: string }>("http://127.0.0.1:8000/chat", { text });
             
             const newMsg: Message = {
@@ -29,8 +26,6 @@ export const useMessages = () => {
     
     const editMessage = async (id: string, newText: string) => {
         try {
-            // Send a POST request to the backend
-            console.log(newText)
             const response = await axios.post<{ response: string }>("http://127.0.0.1:8000/edit", { newText });
 
             setMessages(
@@ -47,14 +42,6 @@ export const useMessages = () => {
     const deleteMessage = (id: string) => {
         setMessages((prevMessages) => prevMessages.filter((message) => message.id !== id));
     };
-
-    const addSuggestedMessage = async () => {
-        addMessage(suggestedMessage, "user")
-    };
-
-    // useEffect(() => {
-    //     fetchSuggestions();
-    // }, []);
 
     return { messages, addMessage, editMessage, deleteMessage };
 };

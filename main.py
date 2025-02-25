@@ -11,7 +11,6 @@ class ItemNewText(BaseModel):
 
 app = FastAPI()
 
-
 responses = {
     "hello": "Hi there!",
     "how are you?": "I'm just a program, but thanks for asking!",
@@ -20,7 +19,7 @@ responses = {
     "hey": "Hi, what's up?",
     "create report for this month": "Ok, I'm working on it!",
     "create report for this week":  "Got it! One second I'll get that report for you",
-    "call lead": "Ok, calling lead, I'll send a status report soon.", # type: ignore
+    "call lead": "Ok, calling lead, I'll send a status report soon.", 
     "what's our current bounce rate?":  "Our bounce rate is 0%, congrats!"
 }
 
@@ -31,7 +30,6 @@ suggestions = {
     "What's our current bounce rate?"
 }
 
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000"],
@@ -40,7 +38,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 @app.get("/")
 async def read_root():
    return {"Hello": "World"}
@@ -48,10 +45,6 @@ async def read_root():
 @app.get("/suggestion")
 async def chat():
     first_suggestion = random.choice(list(suggestions))
-#    second_suggestion = random.choice(list(suggestions))
-#    while second_suggestion == first_suggestion:
-#       second_suggestion = random.choice(list(suggestions))
-#    return {"response": {"suggestion1": first_suggestion, "suggestion2": second_suggestion}}
     return {"response": first_suggestion}
 
 @app.post("/chat")

@@ -1,14 +1,12 @@
 // src/components/Message.tsx
 import React, { useEffect, useState } from 'react';
 import { Message as MessageType } from '../types/Message';
-// import styled from 'styled-components';
-import './Message.css'
+import '../styles/Message.css'
 
 const Message: React.FC<{
     message: MessageType;
     onEdit: (id: string, newText: string) => void;
     onDelete: (id: string) => void;
-    // onSuggestion: (text: string) => void;
 }> = ({ message, onEdit, onDelete }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [newText, setNewText] = useState(message.text);
@@ -47,11 +45,13 @@ const Message: React.FC<{
             <div className='message-bot-container'>
             {isEditing ? (
                 <>
+                    <img src={require('../assets/images/ava.png')} className="ava-pic" />
                     <p className='message-bot-text'>Don't worry, I'll wait...</p>
                     <span className='message-bot-sender'>Ava - {message.timestamp.toLocaleString()}</span>
                 </>
             ) : (
                 <>
+                    <img src={require('../assets/images/ava.png')} className="ava-pic" />
                     <p className='message-bot-text'>{message.response!}</p>
                     <span className='message-bot-sender'>Ava - {message.timestamp.toLocaleString()}</span>
                 </>

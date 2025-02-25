@@ -1,70 +1,29 @@
-# Readme for Artisan chatbot trial task.
-
-# https://artisanai.notion.site/Full-stack-Async-Exercise-58da5061b8904b28b747f468ff096feb
-
-## 🗒️ Assignment
-
-You need to develop a chat widget that allows users to send messages to a chatbot. The widget should support the following actions:
-
-- Send a message
-    - The chatbot should respond with a message
-        - You can decide how to implement this chatbot. It could be as simple or as complex as you’d like. Ultimately, sending a message to the chatbot should return a response
-- Delete message
-    - The user can delete a message that they’ve sent
-- Edit message
-    - The user can edit the message they’ve sent
-- UI design
-    - Use the image above as a guide to the design of the chat app. We’ll leave it up to you on how accurate you want to match the design above.
-
-Hint
-
-- You can follow RESTful api endpoints for this
-
-## 🏁 How to complete the exercise
-
-If you have any questions before starting or during the exercise, please send them to us. We will get back to you with the answers as soon as possible.
-
-Use git to commit your code as you would normally work on a project, this would help us to understand your work process. Please organize, design, test, and document your code as if the feature was going into production.
-
-Once you are done, we ask you to present your work asynchronously. P**lease upload your solution** onto GitHub so that we can review it. You can write documentation explaining your approach and solution or record a video — it’s up to you to present your work best! Our team is mostly async so communication is extremely important to us.
-
-After it’s done, we will do an internal code review for your code and share feedback with you over email. If we like what we see, we will invite you to the technical interview with the team to discuss your solution further along with other technical topics.
-
-## ⚙️ Technical Requirements
-
-Please follow these technical requirements.
-
-- For the UI, please use React and TypeScript. For the API, please use Python and FastAPI Other than that, you are fully flexible in how you approach the task. You might want to consider adding a data persistence layer or caching. That is up to you.
-- Be minimalistic with additional dependencies. You can be the judge of what’s needed and what’s not.
-- Use git to commit your code as you would normally work on a project. This is helpful for us to understand your workflow and thinking process.
-- Feel free to make UI changes that you think is best for the user.
-- We must be able to test your solution, i.e. run it locally by cloning it from Github or access it on some public url like Heroku.
-
-## 🔍 What we are looking for
-
-When assessing the results, these are the main areas we will be looking at. It does not need to be perfect. We will be assessing it holistically. 
-
-These are the areas we are generally interested in: 
-
-- The feature is complete and works according to requirements. It is stable, and edge cases are handled in a sensible, thought-out manner. There is error handling and authentication is considered.
-- The code is well organized, easy to understand and readable, it follows best practices. Your work process is visible through the commit history and documentation.
-- Feature implemented in a user-friendly, UI looks cohesive and delightful. Feel free to make changes in the UI design if you feel they would improve the experience. Bonus points if it is also accessible!
-- We’d love to see some automated tests. You don’t need to aim for 100% test coverage, but we’d like to get a sense of your approach to automated testing.
-- Mostly importantly, we want to see your communication style throughout the project. As mentioned previous, we are a distributed team so **communication is extremely important** to us.
-
 # How to Run & Test My Code
 
 Create Virtual Environment
 ```python -m venv venv```
 ```source venv/bin/activate```
 Install FastAPI & Uvicorn
-```pip install fastapi uvicorn```
+```pip install requirements.txt```
 Start the server
 ```uvicorn main:app --reload```
 
 In another terminal window, Start React App
 ```cd chatbot-frontend```
+```npm install```
 ```npm start```
 
 Should be running on 
 http://localhost:3000
+
+# My Approach
+Started by refamiliarizing myself with React and then just dove into making the chatbot. I started with getting the backend working and testing manually by sending requests to the API with Thunder client. Then I started on the frontend, made some progress but had to double back because I realized I wasn't using Typescript, did some refactoring to fix it. Then I added in the edit and delete functionality which was tricky but I ended up making some design decisions for it to make sense (ie. when the user edits a message, Ava should update the response to that message). I spent more time on the front end and making some refactoring changes so the project was cleaner. I ended up taking a long break to focus on work but have been actively applying and interviewing at different startups and ended up reapplying to Artisan. Tina reached out asking if I had completed the take home assessment Lastly, I made some UI updates (I learned a lot more about css and styling in react since I first started working on this). So I added some finishing touches to the UI and some small refactoring changes.
+
+## Backend
+I made a simple FastAPI backend so I could begin testing my code. Then moved on to more "complex" functionality, basically I just used a python dictionary to store Ava's responses to certain user messages, and default responses if the user message didn't match any of the keys in the dictionary. 
+
+## Frontend
+I created a react app and just wanted to get basic message functionality working. I made a simple component for chatting with Ava that incorporated the edit and delete functionality as well as suggested messages. I tried to recreate the given UI as best as I could but realized i was spending too much time on it, I probably would've preferred to build  out the  backedn chatbot more but wanted to try to learn more about react and typescript. Cursor and ChatGPT were my best friends for this. 
+
+## Testing
+I added some React tests with the help of ChatGPT. Not all the tests pass but it was a good start.

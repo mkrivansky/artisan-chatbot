@@ -1,4 +1,4 @@
-/* src/components/Chat.css */
+/* src/styles/Chat.css */
 
 .chat-container {
     flex: 1;
@@ -6,6 +6,7 @@
     flex-direction: column;
     padding: 10px;
     background-color: white;
+    overflow-y: auto;
 }
 
 .button-suggestion {
@@ -21,8 +22,16 @@
     background-color: #f1f1f1;
     color: #7d3afd;
     max-width: 30%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .button-suggestion:hover {
     opacity: 0.8;
+}
+
+.container {
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
